@@ -13,7 +13,6 @@
 	"edge_hidden_dim": 8,
 	"aggr": "add",
 	
-	"aggr": "max",
 	"embed_dim": 4,
 	"aggregator": "softmax",
 	"learn": true,
