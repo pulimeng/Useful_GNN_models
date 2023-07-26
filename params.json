@@ -1,0 +1,34 @@
+{	"batch_size": 64,
+
+	"input_dim": 12,
+	"output_dim": 2,
+	
+	"num_conv_layers": 3,
+	"hidden_dim": 512,
+	"batch_norm": true,
+	
+	"num_heads": 8,
+
+	"edge_input_dim": 1,
+	"edge_hidden_dim": 8,
+	"aggr": "add",
+	
+	"aggr": "max",
+	"embed_dim": 4,
+	"aggregator": "softmax",
+	"learn": true,
+	"msg_norm": true,
+	"mlp_layers": 2,
+	
+	"jumping_knowledge": "max",
+	"global_pool": "set2set",
+	"process_step": 2,
+	"dense_dims": [16,32,64],
+
+	"dropout":0.0,
+	"num_epochs": 550,
+	"lr": 1e-3,
+	"weight_decay": 1e-5,
+	"optimizer": "adam",
+	"manual_seed": 12345
+}
