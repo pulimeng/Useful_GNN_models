@@ -1,1 +1,1 @@
-# CSBG-GNN_models
+# CSBG@LSU GNN Models
