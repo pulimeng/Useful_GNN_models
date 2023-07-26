@@ -9,3 +9,7 @@ This repo contains an integrated module for GNNs. All scripts are examples, and 
 `train.py` is the training code. It outputs train loss, validation loss, validation acc, and validation confusion matrix.
 
 `params.json` is the parameter file for the models and other codes.
+
+To train the model,
+
+`python train.py --input_folder .... --labels .... --model model_name --output_folder ./results`
