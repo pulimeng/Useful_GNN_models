@@ -34,7 +34,7 @@ python train.py --input_folder .... --labels .... --model model_name --output_fo
 ```
 
 Replace the placeholders:
-- `....` with the actual paths or values for the `input_folder` (where your preprocessed graph data is stored) and `labels` (corresponding labels for the graphs).
+- `....` with the actual paths or values for the `input_folder` (where your preprocessed graph data is stored) and `labels` (dataframe contain names of the instances file and labels).
 - `model_name` with the name of the GNN model you want to use, such as "GCN," "GIN," "GAT," "MPNN," or "GEN."
 - `./results` with the output folder path where the training results will be saved. Feel free to change this path to a different directory if needed.
 
