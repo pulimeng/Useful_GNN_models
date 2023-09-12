@@ -1,6 +1,4 @@
-"""
-# Copyright (c) 2021 Ainnocence, Inc. All Rights Reserved
-"""
+
 
 import os
 import os.path as osp
