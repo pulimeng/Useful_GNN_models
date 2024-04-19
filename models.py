@@ -35,7 +35,7 @@ class GCNnet(torch.nn.Module):
         self.convs = torch.nn.ModuleList()
         self.batch_norms = torch.nn.ModuleList()
         self.dropout = dropout
-        for i in num_conv_layers:
+        for i in range(num_conv_layers):
             in_channels = input_dim if i == 0 else hidden_dim
             conv = GCNConv(in_channels=in_channels, out_channels=hidden_dim)
             self.convs.append(conv)
@@ -145,7 +145,7 @@ class GATnet(torch.nn.Module):
         self.convs = torch.nn.ModuleList()
         self.batch_norms = torch.nn.ModuleList()
         self.dropout = dropout
-        for i in num_conv_layers:
+        for i in range(num_conv_layers):
             in_channels = input_dim if i == 0 else num_heads*hidden_dim
             conv = GATConv(in_channels=in_channels, out_channels=hidden_dim, 
                            heads=num_heads, concat=True,
@@ -256,7 +256,7 @@ class GINnet(torch.nn.Module):
         self.convs = torch.nn.ModuleList()
         self.batch_norms = torch.nn.ModuleList()
         self.dropout = dropout
-        for i in num_conv_layers:
+        for i in range(num_conv_layers):
             in_channels = input_dim if i == 0 else hidden_dim
             conv = GINConv(Sequential(Linear(in_channels, hidden_dim),
                                       ReLU(),
@@ -374,7 +374,7 @@ class MPNNnet(torch.nn.Module):
         self.convs = torch.nn.ModuleList()
         self.batch_norms = torch.nn.ModuleList()
         self.dropout = dropout
-        for i in num_conv_layers:
+        for i in range(num_conv_layers):
             in_channels = input_dim if i == 0 else hidden_dim
             edge_in_channels = edge_input_dim if i == 0 else edge_hidden_dim
             conv = NNConv(in_channels=in_channels, out_channels=hidden_dim,
@@ -500,7 +500,7 @@ class GENnet(torch.nn.Module):
         self.node_encoder = Linear(input_dim, embed_dim)
         self.edge_encoder = Linear(edge_input_dim, embed_dim)
         
-        for i in num_conv_layers:
+        for i in range(num_conv_layers):
             conv = GENConv(in_channels=embed_dim, out_channels=hidden_dim,
                            aggr=aggr, learn_t=learn, learn_p=learn,
                            msg_norm=msg_norm, num_layers=mlp_layers)
