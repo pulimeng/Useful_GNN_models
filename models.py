@@ -35,6 +35,8 @@ class GCNnet(torch.nn.Module):
         self.convs = torch.nn.ModuleList()
         self.batch_norms = torch.nn.ModuleList()
         self.dropout = dropout
+        self.dense_dims = dense_dims
+        
         for i in range(num_conv_layers):
             in_channels = input_dim if i == 0 else hidden_dim
             conv = GCNConv(in_channels=in_channels, out_channels=hidden_dim)
@@ -145,6 +147,8 @@ class GATnet(torch.nn.Module):
         self.convs = torch.nn.ModuleList()
         self.batch_norms = torch.nn.ModuleList()
         self.dropout = dropout
+        self.dense_dims = dense_dims
+
         for i in range(num_conv_layers):
             in_channels = input_dim if i == 0 else num_heads*hidden_dim
             conv = GATConv(in_channels=in_channels, out_channels=hidden_dim, 
@@ -256,6 +260,8 @@ class GINnet(torch.nn.Module):
         self.convs = torch.nn.ModuleList()
         self.batch_norms = torch.nn.ModuleList()
         self.dropout = dropout
+        self.dense_dims = dense_dims
+
         for i in range(num_conv_layers):
             in_channels = input_dim if i == 0 else hidden_dim
             conv = GINConv(Sequential(Linear(in_channels, hidden_dim),
@@ -374,6 +380,8 @@ class MPNNnet(torch.nn.Module):
         self.convs = torch.nn.ModuleList()
         self.batch_norms = torch.nn.ModuleList()
         self.dropout = dropout
+        self.dense_dims = dense_dims
+
         for i in range(num_conv_layers):
             in_channels = input_dim if i == 0 else hidden_dim
             edge_in_channels = edge_input_dim if i == 0 else edge_hidden_dim
