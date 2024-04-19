@@ -1,4 +1,4 @@
-# CSBG@LSU GNN Models
+# Some useful GNN Models
 
 This repository contains an integrated module for Graph Neural Networks (GNNs), along with example scripts. The module is designed to fit data representations and formattings specific to your task. However, some lines in the code will require modifications to ensure a smooth run. Please read the following instructions to understand the purpose of each file and make the necessary changes for successful training.
 
