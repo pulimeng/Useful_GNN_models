@@ -17,7 +17,7 @@ from data_utils import MyGraphDataset
 from models import GCNnet, GINnet, GATnet, MPNNnet, GENnet
 
 from sklearn.metrics import accuracy_score, confusion_matrix
-from sklearn.model_selection import KFold
+from sklearn.model_selection import StratifiedKFold
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 print('Current device: ' + str(device))
@@ -115,7 +115,7 @@ def train(data_path, label_path, model_name, save_dir):
     # cross validation setup
     Nfold = 5
     df = pd.read_csv(label_path)
-    skf = KFold(n_splits=Nfold, shuffle=True)
+    skf = StratifiedKFold(n_splits=Nfold, shuffle=True)
     f = 0
     dataset = MyGraphDataset(data_path, df, device=device)
     
@@ -124,7 +124,7 @@ def train(data_path, label_path, model_name, save_dir):
     val_acc = np.zeros((Nfold, opt['num_epochs']))
     val_cnf = np.zeros((Nfold, opt['output_dim'], opt['output_dim']))
     
-    for tr_idx, val_idx in skf.split(df):
+    for tr_idx, val_idx in skf.split(df, df['class']):
         print('===================Fold {} starts==================='.format(f+1))
         training_set = Subset(dataset, tr_idx)
         validation_set = Subset(dataset, val_idx)
@@ -140,7 +140,7 @@ def train(data_path, label_path, model_name, save_dir):
                 for i, batch in enumerate(training_loader):          
                     optimizer.zero_grad()
                     output = model(batch) # TODO: change this line accordingly based on your data formatting
-                    y_true = batch[1].to(device) # TODO: change this line accordingly based on your data formatting
+                    y_true = batch.y.squeeze() # TODO: change this line accordingly based on your data formatting
                     loss = criterion(output, y_true)
                     loss.backward()
                     optimizer.step()
@@ -155,7 +155,7 @@ def train(data_path, label_path, model_name, save_dir):
                     with torch.no_grad():
                         output = model(batch) # TODO: change this line accordingly based on your data formatting
                         y_preds += torch.argmax(output, 1).tolist()
-                    y_true = batch[1].to(device) # TODO: change this line accordingly based on your data formatting
+                    y_true = batch.y.squeeze() # TODO: change this line accordingly based on your data formatting
                     y_trues += y_true.tolist()
                     loss = criterion(output, y_true)
                     losses.append(loss.cpu().detach().numpy())

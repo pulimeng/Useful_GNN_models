@@ -345,7 +345,7 @@ class GINnet(torch.nn.Module):
         else:
             x1 = xs[-1]
         x1 = self.gpl(x1, batch)
-        for dense_layer in range(self.dense_layers):
+        for dense_layer in self.dense_layers:
             x1 = F.relu(dense_layer(x1))
             if self.dropout > 0.0:
                 x1 = F.dropout(x1, p=self.dropout, training=self.training)
