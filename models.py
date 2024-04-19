@@ -85,7 +85,7 @@ class GCNnet(torch.nn.Module):
                     fc = Linear(in_features=hidden_dim, out_features=dense_dims[j])
             else:
                 fc = Linear(in_features=dense_dims[j-1], out_features=dense_dims[j])
-                self.fcs.append(fc)
+                self.dense_layers.append(fc)
         self.final_dense = Linear(in_features=dense_dims[j], out_features=output_dim)
         
     def reset_parameters(self):
@@ -199,7 +199,7 @@ class GATnet(torch.nn.Module):
                     fc = Linear(in_features=num_heads*hidden_dim, out_features=dense_dims[j])
             else:
                 fc = Linear(in_features=dense_dims[j-1], out_features=dense_dims[j])
-                self.fcs.append(fc)
+                self.dense_layers.append(fc)
         self.final_dense = Linear(in_features=dense_dims[j], out_features=output_dim)
         
     def reset_parameters(self):
@@ -315,7 +315,7 @@ class GINnet(torch.nn.Module):
                     fc = Linear(in_features= hidden_dim, out_features=dense_dims[j])
             else:
                 fc = Linear(in_features=dense_dims[j-1], out_features=dense_dims[j])
-                self.fcs.append(fc)
+                self.dense_layers.append(fc)
         self.final_dense = Linear(in_features=dense_dims[j], out_features=output_dim)
         
     def reset_parameters(self):
@@ -435,7 +435,7 @@ class MPNNnet(torch.nn.Module):
                     fc = Linear(in_features= hidden_dim, out_features=dense_dims[j])
             else:
                 fc = Linear(in_features=dense_dims[j-1], out_features=dense_dims[j])
-                self.fcs.append(fc)
+                self.dense_layers.append(fc)
         self.final_dense = Linear(in_features=dense_dims[j], out_features=output_dim)
         
     def reset_parameters(self):
@@ -558,7 +558,7 @@ class GENnet(torch.nn.Module):
                     fc = Linear(in_features= hidden_dim, out_features=dense_dims[j])
             else:
                 fc = Linear(in_features=dense_dims[j-1], out_features=dense_dims[j])
-                self.fcs.append(fc)
+                self.dense_layers.append(fc)
         self.final_dense = Linear(in_features=dense_dims[j], out_features=output_dim)
         
     def reset_parameters(self):
