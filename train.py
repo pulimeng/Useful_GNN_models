@@ -47,6 +47,7 @@ def create_model(model_name, opt):
                        batch_norm=opt['batch_norm'], jumping_knowledge=opt['jumping_knowledge'], 
                        global_pool=opt['global_pool'], process_step=opt['process_step'],
                        dense_dims=opt['dense_dims'], dropout=opt['dropout'])
+        return model
     elif model_name == 'MPNN':
         model = MPNNnet(input_dim=opt['input_dim'], output_dim=opt['output_dim'],
                         num_conv_layers=opt['num_conv_layers'], edge_input_dim=opt['edge_input_dim'],
