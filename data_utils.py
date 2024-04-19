@@ -1,10 +1,10 @@
 import os.path as osp
+import torch
+from torch.utils.data import Dataset
+from torch_geometric.data import Data, Batch
 import h5py
 
-import torch
-from torch_geometric.data import Data, Dataset
-
-def LoadData(path):
+def read_h5_file(path):
     with h5py.File(path, 'r') as f:
         X = f['X'][()]
         eI = f['eI'][()]
@@ -19,17 +19,23 @@ def LoadData(path):
 
 class MyGraphDataset(Dataset):
     def __init__(self, root, df, device):
-        super(MyGraphDataset, self).__init__(root, df)
+        super(MyGraphDataset, self).__init__()
         self.root = root
         self.df = df
         self.device = device
-        
+    
     def __len__(self):
         return len(self.df)
     
     def __getitem__(self, idx):
         filename = self.df.loc[idx, 'instance']  # Assuming 'instance' is the column containing filenames
-        data = LoadData(osp.join(self.root, filename, filename + '.h5'))
+        data = read_h5_file(osp.join(self.root, filename, filename + '.h5'))  # Corrected filename concatenation
         # Convert data to device if needed
         data = data.to(self.device)
         return data
+    
+    @staticmethod
+    def my_collate_fn(data_list):
+        # Collate function to handle batching of Data objects
+        batch = Batch.from_data_list(data_list)
+        return batch

@@ -1,5 +1,3 @@
-
-
 import os
 import os.path as osp
 import time
@@ -22,7 +20,6 @@ from sklearn.metrics import accuracy_score, confusion_matrix
 from sklearn.model_selection import KFold
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-# device = torch.device('cpu')
 print('Current device: ' + str(device))
 
 def create_model(model_name, opt):
@@ -131,8 +128,8 @@ def train(data_path, label_path, model_name, save_dir):
         print('===================Fold {} starts==================='.format(f+1))
         training_set = Subset(dataset, tr_idx)
         validation_set = Subset(dataset, val_idx)
-        training_loader = DataLoader(training_set, batch_size=opt['batch_size'], shuffle=True)
-        validation_loader = DataLoader(validation_set, batch_size=opt['batch_size'], shuffle=False)
+        training_loader = DataLoader(training_set, batch_size=opt['batch_size'], shuffle=True, collate_fn=MyGraphDataset.my_collate_fn)
+        validation_loader = DataLoader(validation_set, batch_size=opt['batch_size'], shuffle=False, collate_fn=MyGraphDataset.my_collate_fn)
 
         model.reset_parameters()
         best_val_loss = 1e6
