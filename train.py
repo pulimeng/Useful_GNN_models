@@ -200,7 +200,7 @@ if __name__ == "__main__":
     save_dir = osp.join(opt.output_folder,time.strftime("%Y-%m-%d-%H_%M_%S", time.localtime()))
     os.mkdir(save_dir)
     
-    train(opt.input_file, opt.labels, opt.model, save_dir)
+    train(opt.input_folder, opt.labels, opt.model, save_dir)
 
 
 
