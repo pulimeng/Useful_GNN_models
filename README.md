@@ -27,7 +27,7 @@ Here, you will find implementations of various GNN models, including:
 - Message Passing Neural Network (MPNN)
 - Graph Equivariant Network (GEN)
 
-The file also includes JK-layer (Jumping Knowledge layer) and other global pooling methods, which can be useful components for certain GNN architectures. Review this file to understand the structure and architecture of each model and select the one that best suits your task.
+NOTE THE MODELS ARE DESIGNED FOR GRAPH LEVEL OUTPUT. IF YOU WISH TO DO NODE/EDGE LEVEL TASK, YOU NEED TO CHANGE THE FINAL POOLING AND FC LAYERS ACCORDINGLY. The file also includes JK-layer (Jumping Knowledge layer) and other global pooling methods, which can be useful components for certain GNN architectures. Review this file to understand the structure and architecture of each model and select the one that best suits your task.
 
 ### `train.py`:
 
