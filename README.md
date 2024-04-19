@@ -6,7 +6,17 @@ This repository contains an integrated module for Graph Neural Networks (GNNs), 
 
 ### `data_utils.py`:
 
-This file includes data utility scripts to handle your dataset. The module utilizes the Dataset object from the Torch Geometric library, which is a popular choice for working with graph data in PyTorch. It is essential to modify this file to preprocess and load your specific graph data in the desired format. Follow the comments in the script to understand its functionalities and adapt it to your dataset.
+This file includes data utility scripts to handle your dataset. You should store your data in h5 files. where it contains node features, adjacency matrix (optional), sparse edge index, graph level label (optional). A snippet of the script to save to such format is provided below.
+
+```
+with h5py.File(os.path.join(output_folder, comb, '{}.h5'.format(comb)), 'w') as f:
+  f.create_dataset('X', data=feature_matrix, compression='gzip', compression_opts=9)
+  f.create_dataset('A', data=A, compression='gzip', compression_opts=9)
+  f.create_dataset('eI', data=edge_index, compression='gzip', compression_opts=9)
+  f.create_dataset('y', data=np.array(label,dtype=int).reshape((1,1)), compression='gzip', compression_opts=9)
+```
+
+The module utilizes the Dataset object from the PyG library, which is a popular choice for working with graph data in PyTorch. It is essential to modify this file to preprocess and load your specific graph data in the desired format. Follow the comments in the script to understand its functionalities and adapt it to your dataset.
 
 ### `models.py`:
 
@@ -38,7 +48,7 @@ Replace the placeholders:
 - `model_name` with the name of the GNN model you want to use, such as "GCN," "GIN," "GAT," "MPNN," or "GEN."
 - `./results` with the output folder path where the training results will be saved. Feel free to change this path to a different directory if needed.
 
-Before running the training script, ensure you have installed the required dependencies, including PyTorch, Torch Geometric, and any other libraries mentioned in the code.
+Before running the training script, ensure you have installed the required dependencies, including PyTorch, PyG, and any other libraries mentioned in the code.
 
 ## Usage:
 
