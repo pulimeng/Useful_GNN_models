@@ -115,8 +115,8 @@ class GCNnet(torch.nn.Module):
         else:
             x1 = xs[-1]
         x1 = self.gpl(x1, batch)
-        for i in range(self.dense_layers):
-            x1 = F.relu(self.dense_layers[i](x1))
+        for dense_layer in self.dense_layers:
+            x1 = F.relu(dense_layer(x1))
             if self.dropout > 0.0:
                 x1 = F.dropout(x1, p=self.dropout, training=self.training)
         logits = self.final_dense(x1)
@@ -229,8 +229,8 @@ class GATnet(torch.nn.Module):
         else:
             x1 = xs[-1]
         x1 = self.gpl(x1, batch)
-        for i in range(self.dense_layers):
-            x1 = F.relu(self.dense_layers[i](x1))
+        for dense_layer in self.dense_layers:
+            x1 = F.relu(dense_layer(x1))
             if self.dropout > 0.0:
                 x1 = F.dropout(x1, p=self.dropout, training=self.training)
         logits = self.final_dense(x1)
@@ -345,8 +345,8 @@ class GINnet(torch.nn.Module):
         else:
             x1 = xs[-1]
         x1 = self.gpl(x1, batch)
-        for i in range(self.dense_layers):
-            x1 = F.relu(self.dense_layers[i](x1))
+        for dense_layer in range(self.dense_layers):
+            x1 = F.relu(dense_layer(x1))
             if self.dropout > 0.0:
                 x1 = F.dropout(x1, p=self.dropout, training=self.training)
         logits = self.final_dense(x1)
@@ -465,8 +465,8 @@ class MPNNnet(torch.nn.Module):
         else:
             x1 = xs[-1]
         x1 = self.gpl(x1, batch)
-        for i in range(self.dense_layers):
-            x1 = F.relu(self.dense_layers[i](x1))
+        for dense_layer in self.dense_layers:
+            x1 = F.relu(dense_layer(x1))
             if self.dropout > 0.0:
                 x1 = F.dropout(x1, p=self.dropout, training=self.training)
         logits = self.final_dense(x1)
@@ -590,8 +590,8 @@ class GENnet(torch.nn.Module):
         else:
             x1 = xs[-1]
         x1 = self.gpl(x1, batch)
-        for i in range(self.dense_layers):
-            x1 = F.relu(self.dense_layers[i](x1))
+        for dense_layer in self.dense_layers:
+            x1 = F.relu(dense_layer(x1))
             if self.dropout > 0.0:
                 x1 = F.dropout(x1, p=self.dropout, training=self.training)
         logits = self.final_dense(x1)
