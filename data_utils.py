@@ -1,8 +1,10 @@
 import os.path as osp
+import h5py
+
 import torch
 from torch.utils.data import Dataset
 from torch_geometric.data import Data, Batch
-import h5py
+from torch.utils.data.sampler import Sampler
 
 def read_h5_file(path):
     with h5py.File(path, 'r') as f:
@@ -39,3 +41,22 @@ class MyGraphDataset(Dataset):
         # Collate function to handle batching of Data objects
         batch = Batch.from_data_list(data_list)
         return batch
+
+class CustomImbalancedDatasetSampler(Sampler):
+    def __init__(self, dataset, logger, label_weights, device='cpu'):
+        self.device = torch.device(device)
+        self.logger = logger
+        self.indices = list(range(len(dataset)))
+        self.num_samples = len(dataset)
+
+        self.weights = torch.DoubleTensor(
+                    [label_weights[dataset[idx].y.squeeze().detach().item()] for idx in self.indices]
+                ).to(self.device)  # Create tensor on CPU and then move to device        
+        self.logger.info("Weights calculated and sampler initialized.")
+
+    def __iter__(self):
+        # Create your sampling logic here based on self.label_to_count
+        return iter(torch.multinomial(self.weights, self.num_samples, replacement=True).tolist())
+
+    def __len__(self):
+        return self.num_samples
