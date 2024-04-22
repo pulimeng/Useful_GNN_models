@@ -177,7 +177,6 @@ def train(data_path, label_path, model_name, save_dir):
         print('===================Fold '+str(f+1)+' ends===================')
     
         f+=1
-        del model
     np.save(os.path.join(log_path,'train_loss.npy'), tr_losses)
     np.save(os.path.join(log_path,'val_loss.npy'), val_losses)
     np.save(os.path.join(log_path,'val_acc.npy'), val_acc)
